@@ -1,0 +1,6 @@
+import Navbar from "@/components/Navbar";
+import { ATTENDANCE } from "@/lib/demo-data";
+export default function Attendance(){
+ const total=ATTENDANCE.reduce((a,b)=>a+b.total,0),present=ATTENDANCE.reduce((a,b)=>a+b.present,0);
+ return <><Navbar/><main className="container py-10"><h1 className="text-4xl font-black">Attendance</h1><p className="text-slate-500 mt-2">Subject-wise attendance overview.</p><div className="card p-6 mt-7"><div className="flex justify-between items-center"><div><p className="text-slate-500">Overall attendance</p><p className="text-5xl font-black mt-2">{((present/total)*100).toFixed(1)}%</p></div><div className="w-40 h-40 rounded-full border-[16px] border-campus-500 grid place-items-center font-black">{present}/{total}</div></div></div><div className="grid md:grid-cols-2 gap-5 mt-6">{ATTENDANCE.map(a=>{const pct=Math.round(a.present/a.total*100);return <div className="card p-6" key={a.subject}><div className="flex justify-between"><h2 className="font-black">{a.subject}</h2><b>{pct}%</b></div><div className="h-3 bg-slate-200 dark:bg-slate-700 rounded-full mt-4 overflow-hidden"><div className="h-full bg-campus-500" style={{width:`${pct}%`}}/></div><p className="text-sm text-slate-500 mt-2">{a.present} present / {a.total} classes</p></div>})}</div></main></>
+}
